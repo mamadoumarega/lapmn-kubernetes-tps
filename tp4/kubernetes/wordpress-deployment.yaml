@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f /home/vagrant/lapmn-kubernetes-tps/tp3/docker-compose.yml
+    kompose.cmd: kompose convert -f ../docker/docker-compose.yml
     kompose.version: 1.28.0 (c4137012e)
   creationTimestamp: null
   labels:
@@ -18,23 +18,35 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f /home/vagrant/lapmn-kubernetes-tps/tp3/docker-compose.yml
+        kompose.cmd: kompose convert -f ../docker/docker-compose.yml
         kompose.version: 1.28.0 (c4137012e)
       creationTimestamp: null
       labels:
-        io.kompose.network/tp3-default: "true"
+        io.kompose.network/docker-default: "true"
         io.kompose.service: wordpress
     spec:
       containers:
         - env:
-            - name: WORDPRESS_DB_HOST
-              value: db
-            - name: WORDPRESS_DB_NAME
-              value: exampledb
-            - name: WORDPRESS_DB_PASSWORD
-              value: examplepass
-            - name: WORDPRESS_DB_USER
-              value: exampleuser
+            - name: HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: credential
+                  key: HOSTNAME
+            - name: DATEBASE
+              valueFrom:
+                configMapKeyRef:
+                  name: credential
+                  key: DATABASE
+            - name: PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: credential
+                  key: PASSWORD
+            - name: USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: credential
+                  key: USERNAME
           image: wordpress
           name: wordpress
           ports:
