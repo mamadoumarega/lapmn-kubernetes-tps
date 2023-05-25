@@ -1,0 +1,43 @@
+NAMESPACE      NAME                                      READY   STATUS             RESTARTS        AGE     IP             NODE           NOMINATED NODE   READINESS GATES
+default        pod/flaskimage-65bd7b48dd-gvrg6           1/1     Running            0               5m29s   10.244.1.15    minikube-m02   <none>           <none>
+default        pod/hello-minikube                        1/1     Running            0               4h52m   10.244.1.3     minikube-m02   <none>           <none>
+default        pod/hello-minikube-dep-6dcc98f84c-6z98m   1/1     Running            0               3h      10.244.0.5     minikube       <none>           <none>
+default        pod/hello-minikube-dep-6dcc98f84c-j2h8r   1/1     Running            0               3h      10.244.1.9     minikube-m02   <none>           <none>
+default        pod/hello-minikube-dep-6dcc98f84c-wknf7   1/1     Running            0               3h      10.244.1.8     minikube-m02   <none>           <none>
+formation-j2   pod/hello-minikube                        0/1     ImagePullBackOff   0               5h12m   10.244.1.2     minikube-m02   <none>           <none>
+kube-system    pod/coredns-787d4945fb-98tf2              1/1     Running            2 (5h37m ago)   24h     10.244.0.2     minikube       <none>           <none>
+kube-system    pod/etcd-minikube                         1/1     Running            2 (5h37m ago)   24h     192.168.49.2   minikube       <none>           <none>
+kube-system    pod/kindnet-jmkgm                         1/1     Running            2 (5h36m ago)   24h     192.168.49.3   minikube-m02   <none>           <none>
+kube-system    pod/kindnet-r5tv8                         1/1     Running            2 (5h37m ago)   24h     192.168.49.2   minikube       <none>           <none>
+kube-system    pod/kube-apiserver-minikube               1/1     Running            2 (5h37m ago)   24h     192.168.49.2   minikube       <none>           <none>
+kube-system    pod/kube-controller-manager-minikube      1/1     Running            2 (5h37m ago)   24h     192.168.49.2   minikube       <none>           <none>
+kube-system    pod/kube-proxy-49lqd                      1/1     Running            2 (5h36m ago)   24h     192.168.49.3   minikube-m02   <none>           <none>
+kube-system    pod/kube-proxy-k7p5k                      1/1     Running            2 (5h37m ago)   24h     192.168.49.2   minikube       <none>           <none>
+kube-system    pod/kube-scheduler-minikube               1/1     Running            2 (5h37m ago)   24h     192.168.49.2   minikube       <none>           <none>
+kube-system    pod/storage-provisioner                   1/1     Running            4 (5h36m ago)   24h     192.168.49.2   minikube       <none>           <none>
+
+NAMESPACE     NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE     SELECTOR
+default       service/flaskimage           NodePort    10.105.210.154   <none>        5000:30812/TCP           2m42s   app=flaskimage
+default       service/hello-minikube       NodePort    10.110.24.60     <none>        8081:30680/TCP           23h     run=hello-minikube
+default       service/hello-minikube-dep   NodePort    10.106.106.95    <none>        8080:30772/TCP           176m    app=hello-minikube-dep
+default       service/hello-minikube1      NodePort    10.97.137.177    <none>        8080:31902/TCP           22h     run=hello-minikube1
+default       service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP                  24h     <none>
+kube-system   service/kube-dns             ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   24h     k8s-app=kube-dns
+
+NAMESPACE     NAME                        DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE   CONTAINERS    IMAGES                                SELECTOR
+kube-system   daemonset.apps/kindnet      2         2         2       2            2           <none>                   24h   kindnet-cni   kindest/kindnetd:v20221004-44d545d1   app=kindnet
+kube-system   daemonset.apps/kube-proxy   2         2         2       2            2           kubernetes.io/os=linux   24h   kube-proxy    registry.k8s.io/kube-proxy:v1.26.1    k8s-app=kube-proxy
+
+NAMESPACE     NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES                                   SELECTOR
+default       deployment.apps/flaskimage           1/1     1            1           5m29s   flaskapp     hamzaah/flaskapp                         app=flaskimage
+default       deployment.apps/hello-minikube-dep   3/3     3            3           3h31m   echoserver   k8s.gcr.io/echoserver:1.4                app=hello-minikube-dep
+kube-system   deployment.apps/coredns              1/1     1            1           24h     coredns      registry.k8s.io/coredns/coredns:v1.9.3   k8s-app=kube-dns
+
+NAMESPACE     NAME                                            DESIRED   CURRENT   READY   AGE     CONTAINERS   IMAGES                                   SELECTOR
+default       replicaset.apps/flaskimage-65bd7b48dd           1         1         1       5m29s   flaskapp     hamzaah/flaskapp                         app=flaskimage,pod-template-hash=65bd7b48dd
+default       replicaset.apps/hello-minikube-dep-6dcc98f84c   3         3         3       3h31m   echoserver   k8s.gcr.io/echoserver:1.4                app=hello-minikube-dep,pod-template-hash=6dcc98f84c
+kube-system   replicaset.apps/coredns-787d4945fb              1         1         1       24h     coredns      registry.k8s.io/coredns/coredns:v1.9.3   k8s-app=kube-dns,pod-template-hash=787d4945fb
+
+NAMESPACE   NAME                STATUS   ROLES           AGE     VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION    CONTAINER-RUNTIME
+            node/minikube       Ready    control-plane   24h     v1.26.1   192.168.49.2   <none>        Ubuntu 20.04.5 LTS   5.10.0-22-amd64   docker://20.10.23
+            node/minikube-m02   Ready    <none>          5h36m   v1.26.1   192.168.49.3   <none>        Ubuntu 20.04.5 LTS   5.10.0-22-amd64   docker://20.10.23

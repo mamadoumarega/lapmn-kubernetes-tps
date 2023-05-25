@@ -1,0 +1,20 @@
+---
+version: '3.4'
+
+services:
+  flaskapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # soit image produite (lors du build), soit image
+    # utilisée (si le build est déjà fait)
+    image: hamzaah/flaskapp:latest
+    ports:
+      - 3000:5000
+    volumes:
+      - flaskapp_data:/data
+
+networks: {}
+
+volumes:
+  flaskapp_data:
